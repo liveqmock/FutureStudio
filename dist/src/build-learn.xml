@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="form2013.component" basedir="." default="all">
+
+	<!-- 设置项目属性 -->
+    <property name="work.dir" location="/${user.home}/V6"/>
+    <property name="src.dir" location="."/>
+	<property name="src.web.dir" location="../web"/>
+    <property name="classes.dir" location="../classes"/>    
+	<property name="webapps.dir" location="${work.dir}/output/V6 Engine 2008 Web"/>	
+	<property name="lib.web.designtime.dir" value="${work.dir}/output/lib"/>
+	<property name="lib.web.runtime.dir" value="${webapps.dir}/WEB-INF/lib"/>	
+	<property name="web.jar.dir" location="${lib.web.runtime.dir}"/>	
+	<property name="app.jar.dir" location="${web.jar.dir}"/>
+	<property name="jar.name" value="${ant.project.name}.jar"/>
+
+	<!-- 设置classpath -->
+	<path id="classpath">
+	    <fileset dir="${lib.web.designtime.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>
+	    <fileset dir="${lib.web.runtime.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>		
+	</path>
+        
+    <!-- 初始化 -->
+    <target name="init">
+    	<echo>${ant.project.name} 初始化编译目录</echo>
+	    <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${app.jar.dir}"/>
+    </target>
+
+    <!-- 删除所有编译、打包生成的文件 -->
+    <target name="clean" depends="init">
+    	<echo>${ant.project.name} 清空以前编译结果</echo>
+    	<delete>
+        	<fileset dir="${classes.dir}">
+        		<include name="**"/>
+        	</fileset>
+    	</delete>
+    </target>
+
+    <!-- 编译java文件 -->
+    <target name="compile" depends="clean">
+    	<echo>${ant.project.name} 编译java文件</echo>
+        <javac debug="true" deprecation="true"   destdir="${classes.dir}" srcdir="." encoding="gbk">
+        	<classpath refid="classpath"/>
+        </javac>
+    </target>
+	
+	<!-- 复制资源文件到编译路径 -->
+	<target name="copyresource">
+		<echo>${ant.project.name} 复制资源文件到编译路径</echo>
+	    <copy todir="${classes.dir}">    	
+	        <fileset dir="${src.dir}">
+	    		<include name="*.properties"/>
+	        	<exclude name="version.properties"/>
+	        	<!--
+	        	TODO 放置需要打包的资源文件， 例如：
+			        	hibernate映射文件
+			        	数据库初始化文件
+			        	临时表初始化文件
+			        	spring配置文件       	
+	        	-->	 	        	
+			</fileset>   
+	    </copy>
+	</target>
+	
+	<!-- 生成MANIFEST.MF -->
+	<target name="manifest">
+		<echo>${ant.project.name} 生成MANIFEST.MF</echo>
+		<manifest file="${classes.dir}/MANIFEST.MF">	
+		    <attribute name="Implementation-Title" value="http://www.youngfriend.com.cn" />			
+		</manifest>
+	</target>
+
+
+    <!-- 生成jar打包文件 -->
+    <target name="jar" depends="version,compile,copyresource,manifest">
+    	<echo>${ant.project.name} 生成jar打包文件</echo>
+        <jar basedir="${classes.dir}" manifest="${classes.dir}/MANIFEST.MF" compress="true" jarfile="${app.jar.dir}/${jar.name}">        	
+			<include name="**"/>			
+        	<exclude name="MANIFEST.MF"/>
+        </jar>        
+    </target>
+    
+	<!-- 复制网页文件到发布路径 -->
+	<target name="copyweb">
+		<echo>${ant.project.name} 复制网页文件到发布路径</echo>
+		<copy todir="${webapps.dir}" overwrite="true">
+			<fileset dir="${src.web.dir}">
+				<include name="**/*.*" />
+				<include name="WEB-INF/system/form2013/components/struts-config.xml" />
+				<exclude name="**/CVS/**"/>
+				<!-- 忽略less文件 -->
+				<exclude name="**/*.less" />
+				<exclude name="WEB-INF/*.*" />
+				<exclude name="WEB-INF/classes/**" />
+				<exclude name="*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- 生成版本信息 -->
+	<target name="changeversion">
+		<echo>${ant.project.name} 生成版本信息</echo>
+		<propertyfile file="version.properties" comment="version">
+			<entry key="project.version" type="int" default="000001" operation="+" pattern="000000" />
+			<entry key="project.complie.date" type="date" value="now" pattern="yyyyMMddHHmm" />
+		</propertyfile>
+	</target>
+
+	<!-- 修改版本文件 -->
+	<target name="version" depends="changeversion">
+		<echo>${ant.project.name} 修改版本文件</echo>
+		<property file="version.properties" />
+		<replaceregexp encoding="utf-8" match="&quot; version=&quot;(.+)&quot;" replace="&quot; version=&quot;${project.version}.v${project.complie.date}&quot;">
+			<fileset dir=".." includes="**/yfpublish.xml" />
+		</replaceregexp>
+	</target>
+
+	<property name="less-rhino.js" value="${build.tools.dir}/less/less-rhino-1.3.3.js" />
+	<property name="rhino.jar" value="${build.tools.dir}/rhino/rhino.jar" />
+	<property name="closure-compiler.jar" value="${build.tools.dir}/closure/compiler.jar" />
+
+	<target name="compileLESS">
+		<echo>将LESS编译成CSS</echo>
+		<apply dir="${src.web.dir}" executable="java" parallel="false" failonerror="true" force="true">
+			<fileset dir="${src.web.dir}">
+				<!--main.less的路径-->
+				<include name="system/form2013/components/css/main.less" />
+			</fileset>
+			<arg value="-jar" />
+			<arg value="-Dfile.encoding=UTF-8" />
+			<arg path="${rhino.jar}" />
+			<arg path="${less-rhino.js}" />
+			<srcfile />
+			<mapper type="glob" from="*.less" to="${src.web.dir}/*.css" />
+			<targetfile />
+		</apply>
+	</target>
+
+	<property name="modules.dir" location="../web/system/form2013/components/js/modules" />
+	<property name="r.js" value="${build.tools.dir}/rjs/r.js" />
+	<property name="js.build" location="${build.tools.dir}/app.build.js" />
+
+	<target name="optimize">
+		<echo>${ant.project.name} 合并, 压缩 css和javascript文件</echo>
+		<java classname="org.mozilla.javascript.tools.shell.Main" fork="true">
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-Dfile.encoding=UTF-8" />
+			<classpath>
+				<pathelement location="${rhino.jar}" />
+				<pathelement location="${closure-compiler.jar}" />
+			</classpath>
+			<arg value="${r.js}" />
+			<arg value="-o" />
+			<arg value="${js.build}" />
+		</java>
+	</target>
+
+	<!-- 做所有事情 -->
+	<target name="all" depends="jar,compileLESS,optimize,copyweb" description="Build everything." />
+	<target name="all-dev" depends="jar,copyweb" description="Build everything." />
+
+</project>

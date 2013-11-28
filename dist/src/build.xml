@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio" basedir="." default="all">
+
+    <import file="build-properties.xml"/>
+	<!-- 设置项目属性 -->
+    <property name="work.web.dir" location="${work.dir}/WebRoot"/>
+    
+    <property name="src.dir" location="."/>
+	<property name="src.web.dir" location="../WebRoot"/>
+    <property name="classes.dir" location="../classes"/>    
+    
+	<property name="lib.lib.dir" value="${lib.dir}/lib" />
+	<property name="lib.self.dir" value="${lib.dir}/libself" />
+	<property name="lib.baidu.sdk.dir" value="${lib.dir}/baidu/sdk" />
+	<property name="lib.baidu.lib.dir" value="${lib.dir}/baidu/lib" />
+
+	<property name="build.tools.dir" value="../buildtools" />
+	<property name="rhino.jar" value="${build.tools.dir}/rhino/js.jar" />
+	<property name="closure-compiler.jar" value="${build.tools.dir}/closure/compiler.jar" />
+
+	<property name="r.js" value="${build.tools.dir}/rjs/r.js" />
+	<property name="js.build" location="${build.tools.dir}/app.build.js" />
+	
+	<!-- 设置classpath -->
+	<path id="classpath">
+	    <fileset dir="${lib.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>
+	    <fileset dir="${lib.lib.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>	
+	    <fileset dir="${lib.self.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>	
+	    <fileset dir="${lib.baidu.sdk.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>	
+	    <fileset dir="${lib.baidu.lib.dir}">
+	         <include name="**/*.jar"/>
+	    </fileset>		
+	</path>
+        
+    <!-- 初始化 -->
+    <target name="init">
+    	<echo>${ant.project.name} 初始化编译目录</echo>
+	    <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <!-- 删除所有编译、打包生成的文件 -->
+    <target name="clean" depends="init">
+    	<echo>${ant.project.name} 清空以前编译结果</echo>
+    	<delete>
+        	<fileset dir="${classes.dir}">
+        		<include name="**"/>
+        	</fileset>
+    	</delete>
+    </target>
+	
+	<!-- 复制资源文件到编译路径 --><!--
+	<target name="copyresource">
+		<echo>${ant.project.name} 复制资源文件到编译路径</echo>
+	    <copy todir="${classes.dir}">    	
+	        <fileset dir="${src.dir}">
+	    		<include name="*.properties"/>
+	        	<exclude name="version.properties"/>
+	        	
+	        	TODO 放置需要打包的资源文件， 例如：
+			        	hibernate映射文件
+			        	数据库初始化文件
+			        	临时表初始化文件
+			        	spring配置文件       	
+	        		        	
+			</fileset>   
+	    </copy>
+	</target>
+	-->	 
+	<!-- 生成MANIFEST.MF -->
+	<target name="manifest">
+		<echo>${ant.project.name} 生成MANIFEST.MF</echo>
+		<manifest file="${classes.dir}/MANIFEST.MF">	
+		    <attribute name="Implementation-Title" value="http://www.futureplan.cn" />			
+		</manifest>
+	</target>
+    
+	<!-- 复制网页文件到发布路径 -->
+	<target name="copyweb">
+		<echo>${ant.project.name} 复制网页文件到发布路径</echo>
+		<copy todir="${work.web.dir}" overwrite="true">
+			<fileset dir="${src.web.dir}/BuildDir">
+				<include name="WEB-INF/*.jsp" />
+				<include name="WEB-INF/jsp/ueditor*.jsp" />
+				<!-- 忽略less文件 -->
+				<exclude name="WEB-INF/classes/**" />
+				<exclude name="WEB-INF/decorators.xml" />
+				<exclude name="WEB-INF/*.xml" />
+			    <include name="*.jsp" />
+				<exclude name="*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+		<!-- 复制网页文件到发布路径 -->
+	<target name="copyweb-dev">
+		<echo>${ant.project.name} 复制网页文件到发布路径</echo>
+		<copy todir="${work.web.dir}" overwrite="true">
+			<fileset dir="${src.web.dir}">
+			    <include name="**/*.*" />
+				<include name="WEB-INF/*.jsp" />
+				<include name="WEB-INF/jsp/ueditor*.jsp" />
+				<!-- 忽略less文件 -->
+				<exclude name="WEB-INF/classes/**" />
+				<exclude name="WEB-INF/*.xml" />
+			    <include name="*.jsp" />
+			</fileset>
+		</copy>
+	</target>
+	<!-- 生成版本信息 -->
+	<target name="changeversion">
+		<echo>${ant.project.name} 生成版本信息</echo>
+		<propertyfile file="version.properties" comment="version">
+			<entry key="project.version" type="int" default="000001" operation="+" pattern="000000" />
+			<entry key="project.complie.date" type="date" value="now" pattern="yyyyMMddHHmm" />
+		</propertyfile>
+	</target>
+
+	<!-- 修改版本文件 -->
+	<target name="version" depends="changeversion">
+		<echo>${ant.project.name} 修改版本文件</echo>
+		<property file="version.properties" />
+		<replaceregexp encoding="utf-8" match="&quot; version=&quot;(.+)&quot;" replace="&quot; version=&quot;${project.version}.v${project.complie.date}&quot;">
+		</replaceregexp>
+	</target>
+
+
+	<target name="optimize">
+		<echo>${ant.project.name} 合并, 压缩 css和javascript文件</echo>
+		<java classname="org.mozilla.javascript.tools.shell.Main" fork="true">
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-Dfile.encoding=UTF-8" />
+			<classpath>
+				<pathelement location="${rhino.jar}" />
+				<pathelement location="${closure-compiler.jar}" />
+			</classpath>
+			<arg value="${r.js}" />
+			<arg value="-o" />
+			<arg value="${js.build}" />
+		</java>
+	</target>
+
+	<!-- 做所有事情 -->
+	<target name="all" depends="optimize,copyweb" description="Build everything." />
+	<target name="all-dev" depends="copyweb-dev" description="Build everything." />
+
+</project>

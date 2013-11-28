@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tool="http://www.springframework.org/schema/tool" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans            
+		http://www.springframework.org/schema/beans/spring-beans.xsd            
+		http://www.springframework.org/schema/tx            
+		http://www.springframework.org/schema/tx/spring-tx.xsd            
+		http://www.springframework.org/schema/aop            
+		http://www.springframework.org/schema/aop/spring-aop.xsd            
+		http://www.springframework.org/schema/jee            
+		http://www.springframework.org/schema/jee/spring-jee.xsd            
+		http://www.springframework.org/schema/context            
+		http://www.springframework.org/schema/context/spring-context.xsd            
+		http://www.springframework.org/schema/util            
+		http://www.springframework.org/schema/util/spring-util.xsd            
+		http://www.springframework.org/schema/tool            
+		http://www.springframework.org/schema/tool/spring-tool.xsd"
+		default-autowire="byName"
+	>
+	<context:property-placeholder location="classpath:cn/future/config/app.properties" />
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- 百度部署的URL地址 -->
+		<property name="url" value="jdbc:mysql://${urlIp}:${urlPort}/${urlDbName}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;transformedBitIsBoolean=true" />
+		<property name="username" value="${username}"/>  
+        <property name="password" value="${password}"/>  
+	    
+		 <!-- 本地部署的URL地址 
+		<property name="url" value="jdbc:mysql://172.18.69.206:3306/testdb?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;transformedBitIsBoolean=true"/> 
+		<property name="username" value="tony" />
+		<property name="password" value="123456" />
+		  -->
+		    
+	</bean>
+	<!-- hibernate.cfg.xml Spring config -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">                  
+		<property name="dataSource" ref="dataSource">
+			<!-- <ref local="dataSource" /> -->
+		</property>                  
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<!--
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				  -->
+			</props>
+		</property>     
+ 		<property name="mappingLocations">   
+		    <list>
+			    <value>classpath:/cn/future/workflow/hibernate/jbpm.repository.hbm.xml</value>
+				<value>classpath:/cn/future/workflow/hibernate/jbpm.execution.hbm.xml</value>
+				<value>classpath:/cn/future/workflow/hibernate/jbpm.history.hbm.xml</value>
+				<value>classpath:/cn/future/workflow/hibernate/jbpm.task.hbm.xml</value>
+				<value>classpath:/cn/future/workflow/hibernate/jbpm.identity.hbm.xml</value>
+			    <value>classpath*:/cn/future/hibernate/hibernate.hbm.xml </value>   
+		    </list>
+		</property>
+		<!--           
+ 		<property name="mappingResources">
+			<list>			    
+				<value>cn/future/customer/hibernate/future.customer.hbm.xml</value>
+				<value>cn/future/file/hibernate/future.file.hbm.xml</value>
+				<value>cn/future/finance/hibernate/future.finance.hbm.xml</value>
+				<value>cn/future/knowledge/hibernate/future.knowledge.hbm.xml</value>
+			    <value>cn/future/notification/hibernate/future.notification.hbm.xml</value>
+				<value>cn/future/oa/hibernate/future.oa.hbm.xml</value>
+				<value>cn/future/oa/hibernate/future.oa.business.hbm.xml</value>
+				
+				<value>cn/future/workflow/hibernate/future.workflow.hbm.xml</value>
+				<value>cn/future/workflow/hibernate/jbpm.repository.hbm.xml</value>
+				<value>cn/future/workflow/hibernate/jbpm.execution.hbm.xml</value>
+				<value>cn/future/workflow/hibernate/jbpm.history.hbm.xml</value>
+				<value>cn/future/workflow/hibernate/jbpm.task.hbm.xml</value>
+				<value>cn/future/workflow/hibernate/jbpm.identity.hbm.xml</value>
+				
+			</list>
+		</property>
+		  --> 
+	</bean>
+ 	<!--  -->
+	<bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper">
+		<property name="jbpmCfg" value="cn/future/config/jbpm.cfg.xml"></property>
+	</bean>
+	<bean id="processEngine" factory-bean="springHelper" factory-method="createProcessEngine" />
+	
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="executionService" factory-bean="processEngine" factory-method="getExecutionService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+ <!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到  --> 
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+	    <tx:attributes>  
+	        <tx:method name="save*" propagation="REQUIRED" />  
+	        <tx:method name="init*" propagation="REQUIRED" />  
+	        <tx:method name="add*" propagation="REQUIRED" />  
+	        <tx:method name="create*" propagation="REQUIRED" />  
+	        <tx:method name="insert*" propagation="REQUIRED" />  
+	        <tx:method name="update*" propagation="REQUIRED" />  
+	        <tx:method name="merge*" propagation="REQUIRED" />  
+	        <tx:method name="del*" propagation="REQUIRED" />  
+	        <tx:method name="remove*" propagation="REQUIRED" />  
+	        <tx:method name="put*" propagation="REQUIRED" />  
+	        <tx:method name="use*" propagation="REQUIRED"/>  
+	        <tx:method name="refresh*" propagation="REQUIRED"/> 
+	        <tx:method name="validate*" propagation="REQUIRED"/> 
+	        <tx:method name="get*" propagation="REQUIRED" read-only="true" />  
+	        <tx:method name="count*" propagation="REQUIRED" read-only="true" />  
+	        <tx:method name="find*" propagation="REQUIRED" read-only="true" />  
+	        <tx:method name="list*" propagation="REQUIRED" read-only="true" />  
+	        <tx:method name="fresh*" propagation="REQUIRED" read-only="true" />  
+	        <tx:method name="*" propagation="REQUIRED" read-only="true" />  
+	    </tx:attributes>  
+	</tx:advice>  
+
+	<!-- 事务管理加在服务层，而不加在Dao层 service目录下的，任意目录下的任何类，任何方法，加上事务管理    -->   
+	<aop:config>  
+	    <aop:pointcut id="txPointcutOA" expression="execution(* cn.future.*.service..*.*(..))" />  
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcutOA"/>  
+	</aop:config>  
+	<!--  -->
+    <aop:config>  
+	    <aop:pointcut id="txPointcut" expression="execution(* cn.future.service..*.*(..))" />  
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>  
+	</aop:config>  
+</beans>
+	   

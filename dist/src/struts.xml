@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE struts PUBLIC     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"     "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>   
+	<!-- 默认的配置包
+	<constant name="struts.devMode" value="true" />   -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+    <package name="studio-base" extends="struts-default,json-default">
+		<!-- 父包  --> 
+		<global-results> 
+            <result name="signIn">/WEB-INF/studio.jsp</result>
+			<result name="sign" type="redirect">/oaSignIn.action</result>
+			<result name="needLogin" type="redirect">/oaSignIn.action</result>
+			<result name="signJson">/needSignJson.jsp</result>
+		</global-results> 
+	</package> 
+	
+	<package name="studio-base-json" extends="studio-base"> 
+    <!-- 配置自定义拦截器LoginedCheckInterceptor -->
+        <interceptors>
+            <interceptor name="cookieCheckJson" class="cn.future.common.filter.ManageWebCookieInterceptor" />
+            <!-- 默认的必须放在最下面！ -->
+            <interceptor-stack name="myJsonStack">
+                 <interceptor-ref name="cookieCheckJson" />
+                 <interceptor-ref name="json" />
+                 <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+         </interceptors>
+
+         <!-- 默认拦截器，此包下所有的ACTION将都被拦截。如果ACTION再定义了拦截器，则失效 -->
+        <default-interceptor-ref name="myJsonStack" />
+    </package>
+	
+	<package name="studio-base-jsp" extends="studio-base">
+        <!-- 配置自定义拦截器LoginedCheckInterceptor -->
+        <interceptors>
+            <interceptor name="cookieCheckJsp" class="cn.future.common.filter.ManageWebCookieJspInterceptor" />
+            <!-- 默认的必须放在最下面！ -->
+            <interceptor-stack name="myJspStack">
+                <interceptor-ref name="cookieCheckJsp" />
+                <interceptor-ref name="json" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 默认拦截器，此包下所有的ACTION将都被拦截。如果ACTION再定义了拦截器，则失效 -->
+        <default-interceptor-ref name="myJspStack" />
+
+	</package> 
+
+	<!-- 需要用户登陆的 json 数据请求  ： sessionFail-->
+	<package name="studio-customer-session-json" extends="studio-base">
+		<interceptors>
+            <interceptor name="customerSessionCheckJson" class="cn.future.common.filter.ManageWebSessionJsonInterceptor" />
+            <!-- 默认的必须放在最下面！ -->
+            <interceptor-stack name="customerJsonStack">
+                 <interceptor-ref name="customerSessionCheckJson" />
+                 <interceptor-ref name="json" />
+                 <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+         </interceptors>
+
+        <default-interceptor-ref name="customerJsonStack" />
+	</package>
+	
+	<!-- 需要用户登陆的 jsp 页面请求-->
+	<package name="studio-customer-session-jsp" extends="studio-base">
+        <interceptors>
+            <interceptor name="customerSessionCheckJsp" class="cn.future.common.filter.ManageWebSessionJspInterceptor" />
+            <!-- 默认的必须放在最下面！ -->
+            <interceptor-stack name="customerJspStack">
+                <interceptor-ref name="customerSessionCheckJsp" />
+                <interceptor-ref name="json" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="customerJspStack" />
+	</package>
+	
+	
+	<!-- 需要进行https的jsp页面-->
+	
+	<!-- 需要https、登陆的jsp页面 -->
+	
+</struts>

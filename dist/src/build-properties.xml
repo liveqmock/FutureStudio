@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio" basedir="." default="all">
+
+	<!-- 设置项目属性 -->
+	
+    <property name="work.dir" location="../../dghd0"/>
+	
+	<property name="lib.dir" value="../devlib"/>
+
+</project>

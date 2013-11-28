@@ -1,0 +1,76 @@
+<div>
+    <table class="table table-bordered table-striped">
+        <tbody>
+        <tr>
+            <td>剩余额度:<%=args.canBidNumber %></td>
+            <td>ID:<%=args.id %></td>
+            <td>开始:<%=args.startDate %></td>
+            <td>完成:<%=args.finishDate%></td>
+            <td><%=args.statusName %></td>
+        </tbody>
+    </table>
+</div>
+<div>
+    <div>
+        <table class="table table-bordered table-striped">
+            <tbody class="new-returnplan">
+            <tr>
+                <td>
+                    <div class="control-group">
+                        <div class="controls">
+                            <div class="input-append date datepicker-add" data-date-format="yyyy-mm-dd">
+                                <input data-property="returnDate" class="date-input" size="16" readonly=true type="text" placeholder="还款时间">
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <select data-property="statusCode">
+                        <option value="0">计划还款</option>
+                        <option value="10">已还款</option>
+                        <option value="-10">还款失败</option>
+                    </select>
+                    <select data-property="typeCode">
+                        <option value="2">利息</option>
+                        <option value="1">本金</option>
+                    </select>
+                </td>
+                <td>
+                    <input data-property="percentNumber" placeholder="比例：0.01">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input data-property="percentShow" placeholder="显示：利息:1%">
+                </td>
+                <td>
+                    <input data-property="comments" placeholder="备注">
+                </td>
+                <td>
+                    <input data-property="currentMonth" placeholder="还款期次">
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <button class="btn btn-danger btn-save">保存</button>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>计划还款时间</td>
+            <td>还款状态</td>
+            <td>还款比例</td>
+            <td>还款时间</td>
+            <td>还款类型</td>
+            <td>还款期次</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody class="list-area">
+
+        </tbody>
+    </table>
+</div>

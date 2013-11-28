@@ -1,0 +1,168 @@
+<div class="modal hide fade in">
+    <div class="modal-header">
+        <h3><%=args.title%></h3>
+    </div>
+    <div class="modal-body">
+    <table class="table table-bordered table-striped" >
+        <tr>
+            <td>姓名</td>
+            <td>
+                <input type="text" class="class-name" name="u-name" size="16" value="<%=args.name %>"/>
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>工号</td>
+            <td>
+                <input type="text" class="class-employeeId" name="u-employeeId" size="8" value="<%=args.employeeId %>" />
+            </td>
+            <td class="input-alert-employeeId"></td>
+        </tr>
+        <tr>
+            <td>账户</td>
+            <td>
+                <input type="text" class="class-account" name="u-account" size="30" value="<%=args.account %>" />
+            </td>
+            <td class="input-alert-account"></td>
+        </tr>
+        <tr class="password-tr">
+        <td>密码</td>
+        <td>
+            <input type="password" class="class-password" name="u-password" size="30" value="<%=args.account %>" />
+        </td>
+        <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>在职性质</td>
+            <td>
+                <select class="class-accountType">
+                    <option value="<%=args.accountTypeId%>" selected="selected"><%=args.accountTypeName%></option>
+                </select>
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>电话</td>
+            <td>
+                <input type="text" class="class-mobile" name="u-mobile" size="40" value="<%=args.mobile %>" />
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>年假</td>
+            <td>
+                <input type="number" class="class-yearVocation" name="u-yearVocation" size="40" value="<%=args.yearVocation %>" />
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>邮箱</td>
+            <td>
+                <input type="text" class="class-email" name="u-email" size="30" value="<%=args.email %>" />
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>入职时间</td>
+            <td>
+                   <input class="span2 class-addTime datepicker"  data-date-format="yyyy-mm-dd" size="16" type="text" value="<%=args.addTime %>">
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>备注</td>
+            <td>
+                <input type="text" class="class-comments" name="u-comments" size="128" value="<%=args.comments %>" />
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+        <tr>
+            <td>账户状态</td>
+            <td>
+                <!--哪个按钮选中，就btn-primary-->
+                <div class="btn-group account-status" data-toggle="buttons-radio">
+                    <button type="button" class="btn btn-default user-states-button status-1" data-class="1">可用</button>
+                    <button type="button" class="btn btn-default user-states-button status-0" data-class="0">不可用</button>
+                </div>
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>担保情况</td>
+            <td><input type="text" class="class-data1" name="u-data1" value="<%=args.data1%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>保险购买</td>
+            <td>
+                <input type="text" class="class-data2" name="u-data2" value="<%=args.data2%>" />
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>住宿情况</td>
+            <td><input type="text" class="class-data3" name="u-data3" value="<%=args.data3%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>籍贯</td>
+            <td><input type="text" class="class-data4" value="<%=args.data4%>" /></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>身份证号码</td>
+            <td><input type="text" class="class-idcard" value="<%=args.idcard%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>出生日期</td>
+            <td>
+                <input class="span2 class-birthday datepicker"  data-date-format="yyyy-mm-dd" size="16" type="text" value="<%=args.birthday %>">
+            </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>民族</td>
+            <td><input type="text" class="class-data5" value="<%=args.data5%>" /> </td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>学历</td>
+            <td><input type="text" class="class-data6" value="<%=args.data6%>" /></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>婚否</td>
+            <td><input type="text" class="class-data7" value="<%=args.data7%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>住址</td>
+            <td><input type="text" class="class-address" value="<%=args.address%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>家庭地址</td>
+            <td><input type="text" class="class-familyAddress" value="<%=args.familyAddress%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+        <tr>
+            <td>家庭电话</td>
+            <td><input type="text" class="class-familyCall" value="<%=args.familyCall%>"></td>
+            <td class="input-alert-name"></td>
+        </tr>
+
+    </table>
+    </div>
+    <div class="modal-footer">
+        提示：账户信息的所有操作均会记录操作日志
+        <button type="button" class="btn button-save btn-primary"><i class="icon-edit"></i>保存</button>
+        <button type="button" class="btn btn-default button-cancel"><i class="icon-edit"></i>取消</button>
+    </div>
+</div>

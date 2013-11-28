@@ -1,0 +1,62 @@
+<div class="info-base">
+    <table class="table table-bordered table-striped">
+        <tr><th colspan="6">
+            <strong class="title-name"><%=args.name%></strong>  工号：<%=args.employeeId%>
+            <span class="btn btn-primary pull-right edit-user"><i class="icon-edit"></i>编辑</span>
+        </th></tr>
+        <tr>
+            <td>账户</td><td><%=args.account %></td>
+            <td>在职性质</td><td><%=args.accountTypeName %></td>
+            <td rowspan="5" colspan="2"><img class="account-image" src="modules/oa/img/placeholder.jpg"></td>
+        </tr>
+        <tr>
+            <td>邮箱</td><td><%=args.email %></td>
+            <td>备注</td><td><%=args.comments%></td>
+        </tr>
+        <tr>
+            <td>入职时间</td><td><%=args.addTime%></td>
+            <td>账户状态</td><td><%=args.statusName%></td>
+        </tr>
+        <tr>
+            <td>担保情况</td><td><%=args.data1%></td>
+            <td>保险购买</td><td><%=args.data2%></td>
+        </tr>
+        <tr>
+            <td>住宿情况</td><td><%=args.data3%></td>
+            <td>籍贯</td><td><%=args.data4%></td>
+
+        </tr>
+
+        <tr>
+            <td>身份证号码</td><td><%=args.idcard%></td>
+            <td>出生日期</td><td><%=args.birthday%></td>
+            <td>年假</td><td><%=args.yearVocation%></td>
+        </tr>
+        <tr>
+            <td>民族</td><td><%=args.data5%></td>
+            <td>学历</td><td><%=args.data6%></td>
+            <td>婚否</td><td><%=args.data7%></td>
+        </tr>
+        <tr>
+            <td>住址</td><td colspan="2"><%=args.address%></td>
+            <td>联系电话</td><td colspan="2"><%=args.mobile%></td>
+        </tr>
+        <tr>
+            <td>家庭地址</td><td colspan="2"><%=args.familyAddress%></td>
+            <td>联系电话</td><td colspan="2"><%=args.familyCall%></td>
+        </tr>
+    </table>
+
+    <div class="content">
+        <%=args.content%>
+    </div>
+</div>
+
+<div>
+    角色信息<button class="btn btn-default modify-user-role"><i class="icon-edit"></i> 修改</button>
+</div>
+<div class="info-role">
+
+</div>
+
+

@@ -1,0 +1,2 @@
+portal下的layout 有css，需要调整版本
+web-info 下主界面的jsp有css和js需要调整版本

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio.lib" basedir="." default="all">
+    <property name="work.dir" location="E:\workspace\eclipse371\dgh00"/>
+    
+    <import file="common-build.xml"/>
+</project>

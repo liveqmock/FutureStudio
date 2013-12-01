@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.security.pojo">
+	<!--知识库 domain对象配置文件
+	<class name="DVocation" table="tvocation">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		<property name="" />
+		<property name="" />
+	</class>
+	-->
+	<!-- 验证码 -->
+	<class name="PSecurityCode" table="tsecuritycode">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="code" />
+		
+		<property name="userId" />
+		<property name="businessId" />
+		<property name="businessTag" />
+		
+		<property name="createDate" />
+		<property name="deadDate" />
+		<property name="available" />
+	</class>
+	
+</hibernate-mapping>

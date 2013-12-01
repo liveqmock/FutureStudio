@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.finance.pojo">
+	<!--
+		财务模块 Pojo持久对象配置文件  财务一般都需要使用版本字段对事务进行控制
+	<class name="PFinanceProject" table="tfinanceproject">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version />
+		<property name="" />
+		<property name="" />
+		<property name="" />
+	</class>
+	-->
+	<!-- 借款申请详情信息 -->
+	<!-- 借款申请 -->
+	<class name="PCreditRequest" table="tcreditrequest">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="position" />
+		<property name="comments" />
+		<property name="title" />
+		<property name="useFor" />
+		<property name="number" />
+		<property name="month" />
+		<property name="yearRate" />
+		<property name="returnTypeName" />
+		<property name="bidTime" />
+		<property name="approvalComments" />
+		<property name="bankCard" />
+		<property name="addDate" />
+		<property name="statusCode" />
+	</class>
+	<!-- 还款收入 -->
+	<class name="PFinanceProjectIncome" table="tfinanceprojectincome">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version"/>
+		<property name="financeProjectId" />
+		<property name="financeProjectBidId" />
+		<property name="projectReturnPlanId" />
+		<property name="customerId" />
+		<property name="bidNumber" />
+		<property name="incomeNumber" />
+		<property name="projectMonth" />
+		<property name="currentMonth" />
+		<property name="percentNumber" />
+		<property name="percentShow" />
+		<property name="typeCode" />
+		<property name="incomeDate" />
+	</class>
+	<!-- 还款计划 -->
+	<class name="PProjectReturnPlan" table="tprojectreturnplan">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version" />
+		<property name="projectId" />
+		<property name="yearRate" />
+		<property name="projectMonth" />
+		<property name="currentMonth" />
+		<property name="returnDate" />
+		<property name="planReturnDate" />
+		<property name="comments" />
+		<property name="statusCode" />
+		<property name="typeCode" />
+		<property name="percentNumber" />
+		<property name="percentShow" />
+	</class>
+	<!-- 项目使用打信用信息关联类 -->
+	<class name="PFinanceProjectCredit" table="tfinanceprojectcredit">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="projectId" />
+		<property name="creditId" />
+	</class>
+	<!-- 投资项目投标明细 -->
+	<class name="PFinanceProjectBidDetail" table="tfinanceprojectbiddetail">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version"/>
+		<property name="financeProjectId" />
+		<property name="customerId" />
+		<property name="customerNickName" />
+		<property name="customerName" />
+		<property name="customerAccount" />
+		<property name="bidDate" />
+		<property name="cashNumber" />
+		<property name="alreadyReturn" />
+		<property name="canceledBid" />
+		<property name="statusCode" />
+	</class>
+	<!-- 客户申请的投资项目信息 -->
+	<class name="PFinanceProject" table="tfinanceproject">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version"/>
+		<property name="flowId" />
+		<property name="customerId" />
+		<property name="userId" />
+		<property name="workflowId" />
+		
+		<property name="timeType" />
+		<property name="title" />
+		<property name="financeNumber" />
+		<property name="alreadyNumber" />
+		<property name="bidTimes" />
+		<property name="content" />
+		<property name="contentComments" />
+		<property name="comments" />
+		
+		<property name="yearRate" />
+		<property name="projectMonth" />
+		
+		<property name="returnTypeCode" />
+		<property name="returnInfo" />
+		<property name="projectTypeCode" />
+		
+		<property name="minNumber" />
+		<property name="stepNumber" />
+		<property name="maxNumber" />
+	
+		<property name="startDate" />
+		<property name="finishDate" />
+		<property name="deadDate" />
+		<property name="closedBy" />
+		<property name="closedId" />
+		
+		<property name="statusCode" />
+	</class>
+	
+	
+</hibernate-mapping>

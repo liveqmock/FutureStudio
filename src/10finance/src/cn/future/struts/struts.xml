@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>   
+	<!-- 默认的配置包 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />  
+	
+	<!-- 理财查询 -->
+	<!-- 理财管理 -->
+	<package name="finance-project" namespace="/fs/finance" extends="studio-base-json">
+		<action name="projectManage_*" class="cn.future.finance.action.FinanceProjectManageAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>		
+		
+		<action name="projectQuery_*" class="cn.future.finance.action.FinanceProjectQueryAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		
+		<action name="creditRequestQuery_*" class="cn.future.finance.action.CreditRequestQueryAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>
+	</package>
+	<!-- 还款计划 -->
+	<package name="finance-ProjectReturnPlan" namespace="/fs/finance/ProjectReturnPlan" extends="studio-base-json">
+		<action name="manage_*" class="cn.future.finance.action.ReturnPlanManageAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>		
+		<action name="query_*" class="cn.future.finance.action.ReturnPlanQueryAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>
+	</package>
+	
+	<!-- 进行还款 -->
+	<package name="finance-ProjectIncome" namespace="/fs/finance/ProjectIncome" extends="studio-base-json">
+		<action name="manage_*" class="cn.future.finance.action.FinanceProjectIncomeManageAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>		
+		<action name="query_*" class="cn.future.finance.action.FinanceProjectIncomeQueryAction" method="{1}">
+		    <result name="success" type="json" />
+		</action>
+	</package>
+</struts>

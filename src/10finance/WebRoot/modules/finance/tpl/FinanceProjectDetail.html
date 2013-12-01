@@ -1,0 +1,111 @@
+<div>
+    <div>
+        项目ID：<%=args.id %>
+        <a class="btn" target="_blank" href="#">编辑</a>
+        <button class="btn btn-default button-over">结束掉</button>
+        <button class="btn btn-default button-close">结束投标</button>
+        <button class="btn btn-default button-open">开放投标</button>
+        <button class="btn btn-default button-returning">进入还款借款</button>
+        <button class="btn btn-default button-returned">已经完成还款</button>
+        <br/>
+        <button class="btn btn-primary button-return-plan">生成还款计划</button>
+    </div>
+    <div>
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <td>借款用户</td>
+                <td><%=args.customer.cnName %>
+                    <button class="btn btn-default">查看</button>
+                </td>
+                <td>发布用户</td>
+                <td><%=args.userId %></td>
+                <td>流水号</td>
+                <td><%=args.flowId %></td>
+            </tr>
+            <tr>
+                <td>标题</td>
+                <td><%=args.title %></td>
+                <td>备注</td>
+                <td><%=args.comments %></td>
+                <td>周期金额</td>
+                <td><%=args.timeType %></td>
+            </tr>
+            <tr>
+                <td>年化收益率</td>
+                <td><%=args.yearRate %></td>
+                <td>还款类型</td>
+                <td><%=args.returnTypeName %></td>
+                <td>还款信息</td>
+                <td><%=args.returnInfo %></td>
+            </tr>
+            <tr>
+                <td>借款期</td>
+                <td><%=args.projectMonth %> 月</td>
+                <td>项目类型</td>
+                <td><%=args.projectTypeName %></td>
+                <td>附属备注信息</td>
+                <td><%=args.contentComments %></td>
+            </tr>
+            <tr>
+                <td>开始时间</td>
+                <td><%=args.startDate %></td>
+                <td>完成时间</td>
+                <td><%=args.finishDate%></td>
+                <td>结束时间</td>
+                <td><%=args.deadDate%></td>
+            </tr>
+            <tr>
+                <td>剩余时间</td>
+                <td><%=args.timeLeft %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>最大金额</td>
+                <td><%=args.maxNumber %></td>
+                <td>起步金额</td>
+                <td><%=args.minNumber %></td>
+                <td>步进</td>
+                <td><%=args.stepNumber %></td>
+            </tr>
+            <tr>
+                <td>项目金额</td>
+                <td><%=args.financeNumber%></td>
+                <td>理财金额</td>
+                <td><%=args.alreadyNumber%></td>
+                <td>进度比例</td>
+                <td><%=args.alreadyPercent%>%</td>
+            </tr>
+            <tr>
+                <td>剩余额度</td>
+                <td><%=args.canBidNumber %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>状态</td>
+                <td><%=args.statusName %></td>
+                <td>是否关闭</td>
+                <td><%=args.closedBy %></td>
+                <td>关闭者</td>
+                <td><%=args.closedId %></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="content-area">
+            <%=args.content %>
+        </div>
+    </div>
+    <div class="credit-area">
+
+    </div>
+    <div class="bids-area">
+
+    </div>
+</div>
+

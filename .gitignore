@@ -1,0 +1,13 @@
+.idea/
+bin/
+classes/
+*.swp
+.DS_Store
+*.iml
+*.class
+.classpath
+.project
+version.properties
+dist/.appengine-web.xml
+dist/.settings/*
+*.css

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project-build-all"
+         default="build-all">
+     
+    <property name="gitdir" value="../"/>
+    
+    <target name="build-all">
+        <subant target="" failonerror="true" inheritall="false">
+            <fileset dir="${gitdir}" includes="*/src/build.xml"/>
+        </subant>
+    </target>
+
+</project>

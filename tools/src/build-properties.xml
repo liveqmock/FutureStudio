@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio" basedir="." default="all">
+
+	<!-- 设置项目属性 -->
+	<property name="main.vcs.dir" location="E:\workspace\eclipse371" />
+
+    <property name="fs.dir" location="${main.vcs.dir}/fs00" />
+    <property name="dgh.dir" location="${main.vcs.dir}/dgh00" />
+    <property name="devlib.dir" location="${main.vcs.dir}/fslib" />
+
+    <property name="work.dir" location="${devlib.dir}"/>
+    <property name="work.web.dir" location="${work.dir}/WebRoot"/>
+    <property name="work.lib.dir" location="${work.dir}/lib"/>
+    
+    <property name="copy.web.to" location="${fs.dir}/WebRoot/WEB-INF"/>
+		<property name="copy.web.to.dgh" location="${dgh.dir}/WebRoot/WEB-INF"/>
+
+		<property name="bae.lib" location="${work.dir}/baidu/lib" />
+		<property name="bae.sdk" location="${work.dir}/baidu/sdk" />
+	
+    <property name="classes.dir" location="../classes"/>
+
+    <property name="lib.dir" value="${work.dir}/lib"/> <!--dev lib-->
+    <property name="lib.self.dir" location="${work.dir}/libself" />
+
+    <property name="copy.modules.to" location="${fs.dir}/WebRoot/modules"/>
+    <property name="copy.modules.to.dgh" location="${dgh.dir}/WebRoot/modules"/>
+</project>

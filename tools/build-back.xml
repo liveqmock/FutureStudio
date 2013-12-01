@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio.lib" basedir="." default="all">
+
+    <property name="work.dir" location="../../fpd0"/>
+    <property name="work.dir.lib" location="${work.dir}/lib"/>
+    <property name="work.dir.springconfig" location="${work.dir}/src/cn/future/config"/>
+    <property name="work.dir.hibernateconfig" location="${work.dir.springconfig}/hibernate"/>
+    	
+    <property name="src.dir" location="."/>
+    <property name="src.dir.lib" location="../lib"/>
+    <property name="src.dir.lib.self" location="../libself"/>
+    <property name="src.dir.springconfig" location="${src.dir}/config/spring"/>
+    <property name="src.dir.hibernateconfig" location="${src.dir}/config/hibernate"/>
+	
+    <!-- 删除所有编译、打包生成的文件 -->
+    <target name="clean" >
+        <echo>${ant.project.name} clean dir</echo>
+        <delete>
+            <fileset dir="${work.dir.lib}">
+                <include name="**"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="copyconfig">
+        <echo>copy hibernate config</echo>
+        <copy todir="${work.dir.hibernateconfig}"  overwrite="true">
+              <fileset dir="${src.dir.hibernateconfig}">
+                  <include name="*.*"/>
+              </fileset>
+        </copy>
+        <echo>copy spring config</echo>
+        <copy todir="${work.dir.springconfig}"  overwrite="true">
+              <fileset dir="${src.dir.springconfig}">
+                  <include name="*.*"/>
+              </fileset>
+        </copy>
+    </target>
+    
+    <target name="copylib" depends="clean">
+        <echo>copy lib</echo>
+        <copy todir="${work.dir.lib}">
+              <fileset dir="${src.dir.lib}">
+                  <include name="*.*"/>
+              </fileset>
+          </copy>
+        <copy todir="${work.dir.lib}">
+              <fileset dir="${src.dir.lib.self}">
+                  <include name="*.*"/>
+              </fileset>
+         </copy>
+    </target>
+    
+    <target name="all" depends="copylib"></target>
+    <target name="all-config" depends="copylib,copyconfig"></target>
+</project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<du-web-app xmlns="http://bae.baidu.com/java/1.0" >
+
+    <!-- Configure java.util.logging -->
+    <static-files>
+        <include
+            expiration="access 1 months"
+            path="/**.html" />
+    </static-files>
+<!-- 启用分布式环境session 设定时间30分钟 -->
+    <sessions-enabled>true</sessions-enabled>
+
+</du-web-app>

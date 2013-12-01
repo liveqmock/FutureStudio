@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC  
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- 充值 付款 记录模块 -->
+    <package name="fs-pay-payment" namespace="/fs/pay/payment" extends="studio-base-json">
+		<action name="query_*" class="cn.future.pay.action.PaymentQueryAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="manage_*" class="cn.future.pay.action.PaymentManageAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+	</package>
+	
+	<!-- 账户模块 -->
+	<package name="fs-pay-account" namespace="/fs/pay/account" extends="studio-base-json">
+		<action name="query_*" class="cn.future.pay.action.AccountQueryAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+	</package>
+    
+	<package name="fs-pay-1" namespace="/fs/pay" extends="studio-customer-session-jsp">	
+<!-- 	
+		<action name="payFinish_*" class="pay.action.FinishPayAction" method="{1}">
+	     	<result name="successjsp">/WEB-INF/pay/${paySystem}/${jspPage}</result>
+	    </action>
+-->
+	    <action name="tenpay_*" class="cn.future.pay.action.TenpayAction" method="{1}">
+	     	<result name="successjsp">/WEB-INF/pay/tenpay/${jspPage}</result>
+	     	<result name="redirecturl" type="redirect">${requestUrl}</result>
+	    </action>
+	</package>
+	
+	<!-- 走duapp 地址 ，不拦截权限-->
+	<package name="fs-pay-2" namespace="/fs/pay" extends="studio-base">
+		<action name="callBack_*" class="cn.future.pay.action.CallBackAction" method="{1}">
+	     	<result name="successjsp">/WEB-INF/fs/pay/${paySystem}/${jspPage}</result>
+	    </action>
+	    
+	    <action name="baoCallBack_*" class="cn.future.pay.action.BaopayCallBackAction" method="{1}">
+	     	<result name="successjsp">/WEB-INF/fs/pay/baopay/${jspPage}</result>
+	    </action>
+	</package>
+
+</struts>

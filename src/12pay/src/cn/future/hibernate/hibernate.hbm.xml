@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.pay.pojo">
+	<!--知识库 domain对象配置文件
+	<class name="DVocation" table="tvocation">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		<property name="" />
+		<property name="" />
+	</class>
+	-->
+	<!--取现申请 -->
+	<class name="PWithdrawRequest" table="twithdrawrequest">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version" />
+		<property name="userId" />
+		<property name="number" />
+		<property name="requestIp" />
+		<property name="addDate" />
+		<property name="securityDate" />
+		<property name="payDate" />
+		<property name="payOrderId" />
+		<property name="payResult" />
+		<property name="targetAccount" />
+		<property name="targetAccountCode" />
+		<property name="targetAccountName" />
+		<property name="statusCode" />
+	</class>
+	
+	<!--绑定取现账户 -->
+	<class name="PWithdrawAccount" table="twithdrawaccount">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="bindAccount" />
+		<property name="userName" />
+		<property name="bindTypeCode" />
+		<property name="bindTypeName" />
+		<property name="bindTypeLocation" />
+		<property name="lastUpdate" />
+		<property name="statusCode" />
+	</class>
+	<!-- 第三方支付系统记录表 -->
+	<class name="PPayRequest" table="tpayrequest">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version" />
+		<property name="notifyId" />
+		<property name="transactionId" />
+		<property name="bankId" />
+		<property name="businessId" />
+		<property name="cashAccountId" />
+		<property name="totalNumber" />
+		<property name="productNumber" />
+		<property name="transNumber" />
+		<property name="title" />
+		<property name="content" />
+		<property name="userIp" />
+		<property name="transType" />
+		<property name="transportDesc" />
+		<property name="payPlatformCode" />
+		<property name="statusCode" />
+		<property name="createDate" />
+		<property name="deadDate" />
+		<property name="finishDate" />
+	</class>
+	<!-- 现金账户明细表 -->
+	<class name="PCashAccountDetail" table="tcashaccountdetail">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version" />
+		<property name="businessId" />
+		<property name="cashAccountId" />
+		<property name="oldNumber" />
+		<property name="cashNumber" />
+		<property name="newNumber" />
+		<property name="cashOperate" />
+		<property name="updateDate" />
+		<property name="title" />
+		<property name="content" />
+		<property name="comments" />
+		<property name="tagCode" />
+	</class>
+	<!-- 现金账户基础表 -->
+	<class name="PCashAccount" table="tcashaccount">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<version name="version" />
+		<property name="accountTypeCode" />
+		<property name="bindPayAccountType" />
+		<property name="bindPayAccount" />
+		<property name="cashNumber" />
+		<property name="lastUpdate" />
+	</class>
+	
+	
+</hibernate-mapping>

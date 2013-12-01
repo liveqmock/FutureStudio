@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>   
+	<!-- 默认的配置包 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />  
+	
+	<!-- 社会绑定模块 -->
+	<package name="fs-social" namespace="/fs/social" extends="studio-base">
+	    <action name="qqSign_*" class="cn.future.social.action.QQSignAction" method="{1}">
+			<result name="successjsp">/WEB-INF/fs/social/${jspPage}?${params}</result>
+			<result name="redirecturl" type="redirect">${jspPage}?${params}</result>
+		</action>
+		
+		<action name="sign_*" class="cn.future.social.action.SignAction" method="{1}">
+			<result name="success" type="json" />
+			<result name="customer_sign">/WEB-INF/fs/social/customer_sign.jsp</result>
+			<result name="customer_sign_success">/WEB-INF/fs/social/customer_sign_success.jsp</result>
+		</action>
+		
+		<action name="openPage_*" class="cn.future.social.action.SignAction" method="{1}">
+			<result name="successjsp">/WEB-INF/fs/social/${japPage }</result>
+		</action>
+	</package>
+	
+</struts>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>   
+	<!-- 默认的配置包
+	<constant name="struts.devMode" value="true" />   -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />  
+
+	<!-- 新Oa模块 -->
+	<package name="OaRole" namespace="/fs/oa" extends="studio-base-json">
+		<action name="roleQuery_*" class="cn.future.oa.action.RoleQueryAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="roleManage_*" class="cn.future.oa.action.RoleManageAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+	</package>
+	
+	<!-- Oa模块 -->
+	<package name="oa" extends="studio-base-json">
+		<action name="oaAccount_*" class="cn.future.oa.action.AccountAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="oaDepartment_*" class="cn.future.oa.action.DepartmentAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="oaPrivilege_*" class="cn.future.oa.action.PrivilegeAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="oaRole_*" class="cn.future.oa.action.RoleAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="oaBirthday_*" class="cn.future.oa.action.BirthdayAction" method="{1}">
+		    <result name="success" type="json"></result>
+		</action>
+	</package>
+
+    <package name="oa-unFilter" extends="studio-base">
+        <action name="oaUnfilter_*" class="cn.future.oa.action.OaUnFilterAction" method="{1}">
+            <result name="signIn">/WEB-INF/studio.jsp</result>
+            <result name="success" type="json" />
+        </action>
+        <action name="oaSignIn" class="cn.future.oa.action.SignInAction" method="execute">
+            <result name="success">/WEB-INF/signin.jsp</result>
+        </action>
+    </package>
+	
+    		<!-- 用户操作模块 -->
+	<package name="user" extends="studio-base-json">
+	    <action name="userPassword_*" class="cn.future.user.action.UserPasswordAction" method="{1}">
+	        <result name="success" type="json" />
+	    </action> 
+	    
+	</package>
+</struts>

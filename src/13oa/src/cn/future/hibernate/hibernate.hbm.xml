@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.oa.pojo">
+	<!-- 名片类  id同时也是account的id
+	<class name="UserContact" table="tusercontact">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="position" />
+		<property name="nameEnglish" />
+		<property name="mobileWork" />
+		<property name="emailWork" />
+		<property name="addressWork" />
+	</class>
+	 -->
+
+	<!-- 账户类 -->
+	<class name="PAccount" table="taccount">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="account" />
+		<property name="password" />
+		<property name="employeeId" />
+		<property name="email" />
+		<property name="name" />
+		<property name="pinyin" />
+		<property name="mobile" />
+		<many-to-one name="department" column="departmentid" />
+		<property name="statusCode" />
+		<property name="statusName" />
+		<property name="addTime" />
+		<property name="leaveTime" />
+		
+		<property name="headerFileId" />
+		<property name="accountTypeId" />
+		<property name="accountTypeName" />
+		<property name="data1" />
+		<property name="data2" />
+		<property name="data3" />
+		<property name="data4" />
+		<property name="data5" />
+		<property name="data6" />
+		<property name="data7" />
+		<property name="address" />
+		<property name="familyAddress" />
+		<property name="familyCall" />
+		<property name="idcard" />
+		<property name="birthday" />
+		<property name="fullDate" />
+		<property name="yearVocation" />
+		<property name="content" />
+		<set name="roles" table="taccountrole">
+			<key column="accountid" />
+			<many-to-many column="roleid" class="Role" />
+		</set>
+	</class>
+	<!-- 在职性质类 -->
+	<class name="PAccountType" table="taccounttype">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+	</class>
+	<!-- 公司类 -->
+	<class name="PCompany" table="tcompany">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<property name="serviceEnd" />
+		
+		<set name="children" >
+			<key column="companyid" />
+			<one-to-many class="PDepartment"/>
+		</set>
+	</class>
+	<!-- 组织类 -->
+	<class name="PDepartment" table="tdepartment">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		<property name="name" />
+		<property name="level" />
+		<many-to-one name="company" column="companyid" insert="false" update="false" />
+		<many-to-one name="parent" column="parentid" insert="false" update="false" />
+		<many-to-one name="principal" column="principalid" />
+		<set name="children">
+			<key column="parentid" />
+			<one-to-many class="PDepartment"/>
+		</set>
+	</class>
+
+
+	<!-- 角色类 -->
+	<class name="Role" table="trole">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<set name="sysFunctions" table="trolesysfunction">
+			<key column="roleid" />
+			<many-to-many column="sysfunctionid" class="SysFunction" />
+		</set>
+		<set name="sysOperations" table="trolesysoperation">
+			<key column="roleid" />
+			<many-to-many column="sysoperationid" class="SysOperation" />
+		</set>
+	</class>
+	<!-- 功能权限类 -->
+	<class name="SysFunction" table="tsysfunction">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<set name="children" >
+			<key column="parentid" />
+			<one-to-many class="SysFunction"/>
+		</set>
+		<property name="funcType" />
+		<property name="funcValue" />
+		<property name="statusCode" />
+		<property name="statusName" />
+		
+	</class>
+	<!-- 操作权限类 -->
+	<class name="SysOperation" table="tsysoperation">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<property name="statusCode" />
+		<property name="statusName" />
+		<property name="operationTypeName" />
+		<property name="operationTypeCode" />
+	</class>
+	
+</hibernate-mapping>

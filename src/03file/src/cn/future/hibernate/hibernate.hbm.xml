@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.file.pojo">
+    <class name="FileDirectory" table="tfiledirectory">
+        <id name="id" column="id">
+            <generator class="assigned" />
+        </id>
+        <property name="priority" />
+        <property name="comments" />
+        <property name="name" />
+        <property name="addTime" />
+        <property name="accountid" />
+    </class>
+    
+    <class name="PFile" table="tfile">
+        <id name="id" column="id">
+            <generator class="assigned" />
+        </id>
+        <property name="accountid" />
+        <property name="directoryid" />
+        <property name="name" />
+        <property name="pinyin" />
+        <property name="comments" />
+        <property name="addTime" />
+        <property name="lastRead" />
+        <property name="type" />
+        <property name="size" />
+    </class>
+</hibernate-mapping>

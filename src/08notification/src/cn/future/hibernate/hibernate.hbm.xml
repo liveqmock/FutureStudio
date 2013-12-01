@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.notification.pojo">
+	<!--是要是继承了BaseWorkFlow的都应该写在这里面
+	所有的业务类型表，都采用b开头，替换以前使用的T
+	
+	<class name="DVocation" table="tvocation">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+	</class>
+	-->
+	<class name="PSysNotification" table="tsysnotification">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="flowId" />
+		<property name="title" />
+		<property name="content" />
+		<property name="submitName" />
+		<property name="submitId" />
+		<property name="accountId" />
+		<property name="accountName" />
+		<property name="positionId" />
+		<property name="positionName" />
+		<property name="topInfo" />
+		<property name="notificationTypeCode" />
+		<property name="notificationTypeName" />
+		<property name="submitDate" />
+		<property name="statusCode" />
+		<property name="statusName" />
+	</class>
+	
+	<class name="PDevice" table="tdevice">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="deviceName" />
+		<property name="accountId" />
+		<property name="accountName" />
+		<property name="deviceInfoA" />
+		<property name="deviceInfoB" />
+		<property name="deviceInfoC" />
+		<property name="deviceInfo" />
+		<property name="deviceType" />
+		<property name="deviceTypeName" />
+		<property name="addDate" />
+	</class>
+	<!-- 通知类型 -->
+	<class name="PNotificationType" table="tnotificationtype">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<property name="code" />
+	</class>
+	
+	
+</hibernate-mapping>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="cn.future.knowledge.pojo">
+	<!--知识库 domain对象配置文件
+	<class name="DVocation" table="tvocation">
+		<id name="id" column="id">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		<property name="" />
+		<property name="" />
+	</class>
+	-->
+	<!-- 知识附件 -->
+	<class name="PKnowledgeFile" table="tknowledgefile">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		<property name="knowledgeId" />
+		<property name="fileId" />
+	</class>
+	<!-- 知识意见 -->
+	<class name="PKnowledgeAdvice" table="tknowledgeadvice">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="date" />
+		<property name="contentUserName" />
+		<property name="content" />
+		<property name="knowledgeId" />
+		<property name="reply" />
+		<property name="replyUserName" />
+		<property name="replyUserId" />
+	</class>
+	
+	<!-- 知识 -->
+	<class name="PKnowledge" table="tknowledge">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="flowId" />
+		<property name="title" />
+		<property name="date" />
+		<property name="content" />
+		<property name="comments" />
+		<property name="keyWords" />
+		<property name="knowledgeTypeId" />
+		<property name="knowledgeTypeName" />
+		<property name="userId" />
+		<property name="userName" />
+		<property name="version" />
+		<property name="readTime" />
+		<property name="relatedId" />
+		<property name="relatedName" />
+		<property name="statusCode" />
+		<property name="statusName" />
+	</class>
+	<!-- 知识分类，分类只有两级 -->
+	<class name="PKnowledgeType" table="tknowledgetype">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="priority" />
+		<property name="comments" />
+		
+		<property name="name" />
+		<property name="flowId" />
+		<property name="isDirectory" />
+		<property name="parentId" />
+		<property name="parentName" />
+		<property name="outReader" />
+		<property name="statusCode" />
+		<property name="statusName" />
+	</class>
+	
+</hibernate-mapping>

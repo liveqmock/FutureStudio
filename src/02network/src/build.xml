@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="futurestudio.network" basedir="." default="all">
+
+	<!-- 设置项目属性 -->
+    	
+    <property name="src.dir" location="."/>
+    <import file="../../0/src/common-build.xml"/>
+    <!-- 做所有事情 -->
+	<target name="all" depends="jar" description="Build everything."/>
+</project>

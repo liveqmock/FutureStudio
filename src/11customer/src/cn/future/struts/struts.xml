@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>   
+	<!-- 默认的配置包 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />  
+	
+	<!-- 财务模块 -->
+	<package name="fs-customer" namespace="/fs/customer" extends="studio-base-json">
+		<action name="customerQuery_*" class="cn.future.customer.action.CustomerQueryAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+		<action name="customerManage_*" class="cn.future.customer.action.CustomerManageAction" method="{1}">
+			<result name="success" type="json" />
+		</action>
+	</package>
+	
+</struts>
